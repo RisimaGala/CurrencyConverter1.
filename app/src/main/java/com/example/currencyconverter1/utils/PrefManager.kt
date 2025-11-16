@@ -18,6 +18,7 @@ class PrefManager private constructor(private val context: Context) {
         private const val KEY_NOTIFICATIONS_ENABLED = "notifications_enabled"
         private const val KEY_DARK_MODE = "dark_mode"
         private const val KEY_DEFAULT_CURRENCY = "default_currency"
+        private const val KEY_LANGUAGE = "language"
 
         @Volatile
         private var INSTANCE: PrefManager? = null
@@ -41,11 +42,12 @@ class PrefManager private constructor(private val context: Context) {
         }
     }
 
-    fun saveSettings(notificationsEnabled: Boolean, darkMode: Boolean, defaultCurrency: String) {
+    fun saveSettings(notificationsEnabled: Boolean, darkMode: Boolean, defaultCurrency: String, language: String) {
         with(sharedPreferences.edit()) {
             putBoolean(KEY_NOTIFICATIONS_ENABLED, notificationsEnabled)
             putBoolean(KEY_DARK_MODE, darkMode)
             putString(KEY_DEFAULT_CURRENCY, defaultCurrency)
+            putString(KEY_LANGUAGE, language)
             apply()
         }
     }
@@ -60,6 +62,10 @@ class PrefManager private constructor(private val context: Context) {
 
     fun getDefaultCurrency(): String {
         return sharedPreferences.getString(KEY_DEFAULT_CURRENCY, "USD") ?: "USD"
+    }
+
+    fun getLanguage(): String {
+        return sharedPreferences.getString(KEY_LANGUAGE, "en") ?: "en"
     }
 
     fun isUserLoggedIn(): Boolean {
@@ -81,6 +87,7 @@ class PrefManager private constructor(private val context: Context) {
             notificationsEnabled = getNotificationsEnabled(),
             darkMode = getDarkMode(),
             defaultCurrency = getDefaultCurrency(),
+            language = getLanguage(),
             createdAt = System.currentTimeMillis()
         )
     }

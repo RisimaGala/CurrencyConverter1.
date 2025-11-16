@@ -24,11 +24,11 @@ class CurrencyViewModel : ViewModel() {
     // Mock exchange rates data
     private val mockRates = mapOf(
         "USD" to 1.0,
-        "EUR" to 0.85,
-        "GBP" to 0.73,
-        "JPY" to 110.5,
-        "CAD" to 1.25,
-        "AUD" to 1.35,
+        "EUR" to 0.86,
+        "GBP" to 0.76,
+        "JPY" to 154.04,
+        "CAD" to 1.40,
+        "AUD" to 1.53,
         "ZAR" to 17.13
     )
 

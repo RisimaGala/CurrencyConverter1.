@@ -1,4 +1,3 @@
-// Update your User.kt file
 package com.example.currencyconverter1.data.entity
 
 import androidx.room.Entity
@@ -40,5 +39,8 @@ data class User(
     val darkMode: Boolean = false,
 
     @ColumnInfo(name = "default_currency")
-    val defaultCurrency: String = "USD"
+    val defaultCurrency: String = "USD",
+
+    @ColumnInfo(name = "language")
+    val language: String = "en"
 )

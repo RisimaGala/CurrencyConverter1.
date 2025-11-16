@@ -11,7 +11,7 @@ import com.example.currencyconverter1.data.entity.ConversionHistory
 
 @Database(
     entities = [User::class, ConversionHistory::class],
-    version = 1,
+    version = 2, // Incremented version
     exportSchema = false
 )
 abstract class CurrencyDatabase : RoomDatabase() {
@@ -28,7 +28,8 @@ abstract class CurrencyDatabase : RoomDatabase() {
                     context.applicationContext,
                     CurrencyDatabase::class.java,
                     "currency_database"
-                ).build()
+                ).fallbackToDestructiveMigration() // Added for schema changes
+                    .build()
                 INSTANCE = instance
                 instance
             }

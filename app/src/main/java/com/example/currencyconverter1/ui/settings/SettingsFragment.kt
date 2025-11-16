@@ -1,4 +1,3 @@
-// Create SettingsFragment.kt
 package com.example.currencyconverter1.ui.settings
 
 import android.os.Bundle
@@ -30,6 +29,8 @@ class SettingsFragment : Fragment() {
     }
 
     private val currencies = listOf("USD", "EUR", "GBP", "JPY", "CAD", "AUD", "ZAR")
+    private val languages = listOf("English", "Afrikaans", "isiZulu", "isiXhosa", "Sesotho", "Setswana")
+    private val languageCodes = listOf("en", "af", "zu", "xh", "st", "tn")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,9 +56,14 @@ class SettingsFragment : Fragment() {
 
     private fun setupUI() {
         // Setup currency spinner
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, currencies)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.defaultCurrencySpinner.adapter = adapter
+        val currencyAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, currencies)
+        currencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.defaultCurrencySpinner.adapter = currencyAdapter
+
+        // Setup language spinner
+        val languageAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, languages)
+        languageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.languageSpinner.adapter = languageAdapter
     }
 
     private fun setupObservers() {
@@ -95,6 +101,11 @@ class SettingsFragment : Fragment() {
             binding.defaultCurrencySpinner.setSelection(currencyPosition)
         }
 
+        val langPosition = languageCodes.indexOf(user.language)
+        if (langPosition != -1) {
+            binding.languageSpinner.setSelection(langPosition)
+        }
+
         applyThemeSettings()
     }
 
@@ -103,7 +114,6 @@ class SettingsFragment : Fragment() {
             saveSettings()
         }
 
-        // Use toolbar navigation instead of backButton
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
@@ -117,12 +127,12 @@ class SettingsFragment : Fragment() {
         val notificationsEnabled = binding.notificationsSwitch.isChecked
         val darkMode = binding.darkModeSwitch.isChecked
         val defaultCurrency = binding.defaultCurrencySpinner.selectedItem.toString()
+        val selectedLanguage = languageCodes[binding.languageSpinner.selectedItemPosition]
 
-        viewModel.updateSettings(notificationsEnabled, darkMode, defaultCurrency)
+        viewModel.updateSettings(notificationsEnabled, darkMode, defaultCurrency, selectedLanguage)
     }
 
     private fun clearHistory() {
-        // You'll need to implement this in ConversionViewModel
         Toast.makeText(requireContext(), "Clear history functionality to be implemented", Toast.LENGTH_SHORT).show()
     }
 

@@ -23,7 +23,6 @@ class UserViewModel(
     private val _registerState = MutableStateFlow<RegisterState>(RegisterState.Idle)
     val registerState: StateFlow<RegisterState> = _registerState.asStateFlow()
 
-    // Add these to UserViewModel.kt
     private val _profileState = MutableStateFlow<ProfileState>(ProfileState.Idle)
     val profileState: StateFlow<ProfileState> = _profileState.asStateFlow()
 
@@ -65,7 +64,6 @@ class UserViewModel(
         }
     }
 
-    // Add these methods
     fun updateProfile(userId: Long, name: String, phone: String, country: String) {
         _profileState.value = ProfileState.Loading
         viewModelScope.launch {
@@ -93,11 +91,11 @@ class UserViewModel(
         }
     }
 
-    fun updateSettings(notificationsEnabled: Boolean, darkMode: Boolean, defaultCurrency: String) {
+    fun updateSettings(notificationsEnabled: Boolean, darkMode: Boolean, defaultCurrency: String, language: String) {
         _settingsState.value = SettingsState.Loading
         viewModelScope.launch {
             try {
-                prefManager.saveSettings(notificationsEnabled, darkMode, defaultCurrency)
+                prefManager.saveSettings(notificationsEnabled, darkMode, defaultCurrency, language)
                 _settingsState.value = SettingsState.Success
             } catch (e: Exception) {
                 _settingsState.value = SettingsState.Error("Failed to save settings: ${e.message}")
@@ -138,7 +136,6 @@ class UserViewModel(
         data class Error(val message: String) : RegisterState()
     }
 
-    // Add new state classes
     sealed class ProfileState {
         object Idle : ProfileState()
         object Loading : ProfileState()
