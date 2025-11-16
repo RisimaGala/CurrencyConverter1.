@@ -84,11 +84,18 @@ class HistoryFragment : Fragment() {
             viewModel.clearHistory()
             Toast.makeText(requireContext(), "History cleared", Toast.LENGTH_SHORT).show()
         }
+
+        binding.backButton.setOnClickListener {
+            // Navigate directly to converter fragment
+            findNavController().navigate(R.id.converterFragment)
+        }
+
     }
 
     private fun navigateToLogin() {
         findNavController().navigate(R.id.loginFragment)
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
