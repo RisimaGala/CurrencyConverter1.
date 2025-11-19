@@ -408,7 +408,7 @@ Architecture: MVVM with Repository Pattern
 
 Clone the repo
 
-git clone https://github.com/RisimaGala/CurrencyConverter1.git
+git clone https://github.com/RisimaGala/CurrencyConverter1..git
 cd CurrencyConverter1
 
 
